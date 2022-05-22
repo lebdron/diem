@@ -138,9 +138,14 @@ impl Command for AccountCommandMint {
             println!("Invalid number of arguments for mint");
             return;
         }
-        match client.mint_coins(&params, true) {
+        let is_blocking = blocking_cmd(params[0]);
+        match client.mint_coins(&params, is_blocking) {
             Ok(_) => {
-                println!("Finished sending coins from faucet!");
+                if is_blocking {
+                    println!("Finished sending coins from faucet!");
+                } else {
+                    println!("Faucet coin request submitted");
+                }
             }
             Err(e) => report_error("Error transferring coins from faucet", e),
         }
