@@ -75,6 +75,7 @@ fn main() {
     } else {
         None
     };
+    return;
     validator_swarm
         .launch_attempt(true)
         .expect("Failed to launch validator swarm");
